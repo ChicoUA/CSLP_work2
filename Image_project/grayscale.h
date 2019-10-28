@@ -13,3 +13,9 @@ imageGrayscale * createGrayscaleImage(int row, int column, int lum);
 imageGrayscale * readFileGrayscale(char * filename);
 
 void saveOnFileGrayscale(imageGrayscale * image, char * filename);
+
+void changeIntensityGrayscale(imageGrayscale * image, int amount);
+
+unsigned char getPixelGrayscale(imageGrayscale * image, int row, int column);
+
+imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel);

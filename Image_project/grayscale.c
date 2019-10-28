@@ -8,6 +8,7 @@ imageGrayscale * createGrayscaleImage(int row, int column, int lum){
 	image->column = column;
 	image->lum = lum;
 	image->stream = (unsigned char *)calloc(row*column, sizeof(unsigned char));
+	return image;
 }
 
 imageGrayscale * readFileGrayscale(char * filename){
@@ -77,5 +78,63 @@ void saveOnFileGrayscale(imageGrayscale * image, char * filename){
         fclose(f);
 }
 	
+void changeIntensityGrayscale(imageGrayscale * image, int amount){
+	for(int i = 0; i < image->row * image->column; i++){
+		int newvalue  = (int)image->stream[i] + amount;
+		if(newvalue > 255)
+			newvalue = 255;
+		else if(newvalue < 0)
+			newvalue = 0;
+		image->stream[i]  = (unsigned char)newvalue;
+	}
+}
 
+unsigned char getPixelGrayscale(imageGrayscale * image, int row, int column){
+	if(row < 0 || row > image->row || column < 0 || column > image->column)
+		return 0;
+
+	return *(image->stream + row*image->column + column);
+}
+
+imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel){
+	if(sizeOfKernel % 2 == 0){
+                printf("Size of kernel must be odd!");
+                exit(1);
+        }
+
+        int n = (sizeOfKernel - 1) / 2; // odd number = 2n + 1, this n gives the middle number of the size
+
+        float Gx[sizeOfKernel][sizeOfKernel];
+
+        for(int i = 0; i < sizeOfKernel; i++){
+                for(int j = 0; j < sizeOfKernel; j++){
+                        Gx[i][j] = 1/((float)sizeOfKernel * (float)sizeOfKernel);
+                }
+        }
+
+	imageGrayscale * imageMeanFilter = createGrayscaleImage(image->row, image->column, image->lum);
+
+        //make convolution of each pixel
+        for(int row = 0; row < image->row; row++){
+                for(int column = 0; column < image->column; column++){
+                        float temp = 0;
+                        for(int krow = 0; krow < sizeOfKernel; krow++){
+                                for(int kcolumn = 0; kcolumn < sizeOfKernel; kcolumn++){
+                                        float xValue = Gx[krow][kcolumn];
+
+                                        int newrow = row + krow - n;
+                                        int newcolumn = column + kcolumn -n;
+
+                                        unsigned char pixel = getPixelGrayscale(image, newrow, newcolumn);
+                                        temp += (float)pixel * xValue;
+
+                                }
+                        }
+                        *(imageMeanFilter->stream + row * image->column + column) = (int)temp;
+                }
+        }
+
+        return imageMeanFilter;
+
+}
 
