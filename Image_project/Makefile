@@ -12,4 +12,4 @@ image_program: $(OBJ)
 .PHONY: clean
 
 clean:
-	rm -f image_program test.o binary.o grayscale.o RGB.o watermark.ppm gray.pgm rgb.ppm red.pgm green.pgm blue.pgm intensity_grayscale.pgm intensity_rgb.ppm edge.pgm mean.ppm binary.pbm meanGS.pgm
+	rm -f image_program test.o binary.o grayscale.o RGB.o watermark.ppm gray.pgm rgb.ppm red.pgm green.pgm blue.pgm intensity_grayscale.pgm intensity_rgb.ppm edge.pgm mean.ppm binary.pbm meanGS.pgm gaussian.pgm
