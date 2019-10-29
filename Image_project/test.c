@@ -1,3 +1,9 @@
+/**@file test.c
+ * @brief test file with functions that include combinations of the three types of images and where every function is tested
+ *
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -7,10 +13,10 @@
 #include "binary.h"
 
 
-//filtragem: considerar filtro como imagem, colocar uma matriz sobre um pixel que corresponde e fazer operação de convulsão. Usar filtro de média e talvez gaussiano. Usar filtro quadrado
-//usar filtros impares, usar 0 fora da imagem com método getpixel
-//watermarking colocar uma imagem dentro de outra ao fazer uma soma
-
+/**@fn imageBinary * createBinaryImage(int row, int column)
+ * @brief Function used to create an empty binary image, with its columns and rows set
+ * @param filename the name of the file to read
+ */
 imageBinary * createBinaryImage(int row, int column){
         imageBinary * image = (imageBinary *)malloc(sizeof(imageBinary));
         image->row = row;
@@ -19,7 +25,13 @@ imageBinary * createBinaryImage(int row, int column){
         return image;
 }
 
-
+/**@fn imageGrayscale * convertRGBtoGrayscale(imageRGB * image)
+ * @brief Function to convert an RGB image to grayscale
+ * 
+ * It takes each pixel from RGB and makes the mean from its three colors to give the grayscale correspondent
+ *
+ * @param image RGB image to transform
+ */
 imageGrayscale * convertRGBtoGrayscale(imageRGB * image){
 	imageGrayscale * imageGS = createGrayscaleImage(image->row, image->column, image->rgb_component);
         for(int i = 0; i < image->row * image->column; i++){
@@ -28,6 +40,11 @@ imageGrayscale * convertRGBtoGrayscale(imageRGB * image){
 	return imageGS;
 }
 
+/**@fn imageGrayscale * convertRGBComponentToGrayscale(imageRGB * image, char component)
+ * @brief Function to give a component of a RGB image (red, green or blue)
+ * @param image Image RGB to give the component
+ * @param component Color from the RGB image to separate
+ */
 imageGrayscale * convertRGBComponentToGrayscale(imageRGB * image, char component){
 	imageGrayscale * imageGS = createGrayscaleImage(image->row, image->column, image->rgb_component);
 	for(int i = 0; i < image->row * image->column; i++){
@@ -44,12 +61,19 @@ imageGrayscale * convertRGBComponentToGrayscale(imageRGB * image, char component
 	return imageGS;
 }
 
+/**@fn imageBinary * convertGrayscaletoBinary(imageGrayscale * image, int th)
+ * @brief Function to transform a grayscale image to binary image
+ *
+ * It takes each pixel from the grayscale image and compares it to a threshold, if it is smaller it will save 0 in the binary, else it saves 1
+ *
+ * @param image Grayscale image to transform
+ * @param th Threshold to compare
+ */
 imageBinary * convertGrayscaletoBinary(imageGrayscale * image, int th){ //ver método de otsu
 	if(th > 255 || th < 0){
 		printf("Invalid value of threshold, going to use 128\n");
-		th=128;
+		th = 128;
 	}
-
 	imageBinary * imageB = createBinaryImage(image->row, image->column);
 	for(int i = 0; i < image->row*image->column; i++){
 		if(image->stream[i] >= th){
@@ -62,6 +86,15 @@ imageBinary * convertGrayscaletoBinary(imageGrayscale * image, int th){ //ver m�
 	return imageB;
 }
 
+/**@fn imageGrayscale * edgeDetectionFilter(imageRGB * image, int sizeOfKernel)
+ * @brief Function to use edge detection filter on an RGB image
+ * 
+ * It create two filters (Gx and Gy) one is horizontal and the other is vertical and fills them with one side negative, the middle with zeros and the other side with positive numbers.
+ * The it makes the convolution for each pixel with both filters, and finally it calculates the distance between each position of the filters and saves it in the new image.
+ *
+ * @param image RGB image to filter
+ * @param sizeOfKernel The size of filter that will be used
+ */
 imageGrayscale * edgeDetectionFilter(imageRGB * image, int sizeOfKernel){
         if(sizeOfKernel % 2 == 0){
                 printf("Size of kernel must be odd!");
