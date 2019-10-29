@@ -1,12 +1,10 @@
+/**@file RGB.c
+ * @brief This module is responsible for all RGB operations.
+ *
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "grayscale.h"
-/**
- * Documentation for the grayscale.c module
- * This module is responsible for all grayscale operations.
- */
-
-
 #include <math.h>
 
 #define M_PI 3.14159265358979323846
@@ -109,7 +107,8 @@ void saveOnFileGrayscale(imageGrayscale * image, char * filename){
         fclose(f);
 }
 /**
- * Documentation for the changeIntensityGrayscaleImage function of the grayscale module.
+ * This Function adds the values amount to each pixel, if that new value is larger than 255 then it is changed to 255, if it is smaller than 0, then it is changed to 0. Finally it updates 
+ * the value of the pixel.
  */	
 void changeIntensityGrayscale(imageGrayscale * image, int amount){
 	for(int i = 0; i < image->row * image->column; i++){
@@ -129,7 +128,8 @@ unsigned char getPixelGrayscale(imageGrayscale * image, int row, int column){
 	return *(image->stream + row*image->column + column);
 }
 /**
- * Documentation for the meanFilterGS function of the grayscale module.
+ * This function creates a new filter with the size given, an fills it with 1/size², then it goes through each pixel of the image and makes convolution with the filter to obtain a new value for the
+ * pixel and updates it and saves it in a new Grayscale image.
  */
 imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel){
 	if(sizeOfKernel % 2 == 0){
@@ -175,6 +175,7 @@ imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel){
  * Documentation for the gaussianFilter function of the grayscale module.
  * This fuction fill do the following:
  * - Sets standard deviation to 1.0
+ * - It will fill the Kernel
  * - Normalizes the Kernel
  * - Makes convolution of each pixel
  */

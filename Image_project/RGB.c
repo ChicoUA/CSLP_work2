@@ -1,15 +1,14 @@
+/**@file RGB.c
+ * @brief This module is responsible for all RGB operations.
+ *
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "RGB.h"
 #include "grayscale.h"
-/**
- * Documentation for the RBG.c module
- * This module is responsible for all RGB operations.
- */
 
 /**
- * Documentation for the readFileRGB function of the RGB module.
  * This fuction fill do the following:
  * - Check if the files exists, if not it will exit, outputting the appropriate warning.
  * - Read the file format, if he is unable to it will exit.
@@ -100,17 +99,10 @@ void saveOnFileRGB(imageRGB * image, char * filename){
 	fwrite(image->stream, 3 * image->row, image->column, f);
 	fclose(f);
 }
-/**
- * Documentation for the converRGBtoGrayscale function of the RBG module.
- */
-imageGrayscale * convertRGBtoGrayscale(imageRGB * image){
-	imageGrayscale * imageGS  = createGrayscaleImage(image->row, image->column, image->rgb_component);
-       	printf("row: %d, column: %d, rgb: %d\n", imageGS->row, imageGS->column, imageGS->lum);	
-	for(int i = 0; i < image->row * image->column; i++){
-		imageGS->stream[i] = (image->stream[i].r + image->stream[i].g + image->stream[i].b)/3;
 
 /**
- * Documentation for the changeIntensityRGB function of the RBG module.
+ * This Function adds the values amount to each component of the pixel, if that new value is larger than 255 then it is changed to 255, if it is smaller than 0, then it is changed to 0. Finally it updates 
+ * the value of each component of the pixel.
  */
 void changeIntensityRGB(imageRGB * image, int amount){
 	for(int i = 0; i < image->row*image->column; i++){
@@ -156,7 +148,8 @@ RGBPixel getPixelRGB(imageRGB * image, int row, int column){
 }
 
 /**
- * Documentation for the meanFiler function of the RBG module.
+ * This function creates a new filter with the size given, an fills it with 1/size², then it goes through each pixel of the image and makes convolution with the filter to obtain a new value for the
+ * pixel and updates it and saves it in a new RGB image.
  */
 imageRGB * meanFilter(imageRGB * image, int sizeOfKernel){
 	if(sizeOfKernel % 2 == 0){
@@ -205,7 +198,8 @@ imageRGB * meanFilter(imageRGB * image, int sizeOfKernel){
 	return imageMeanFilter;
 }
 /**
- * Documentation for the watermarkImage function of the RBG module.
+ * This function foes through each pixel of each image and multiplies the values of the component of the main image with 1-alpha an multiplies the components of the watermark image with alpha and adds them
+ * and saves the new pixel in the new RGB image.
  */
 imageRGB * watermarkImage(imageRGB * image1, imageRGB * image2, float alpha){
 	if(image1->row != image2->row || image1->column != image2->column){

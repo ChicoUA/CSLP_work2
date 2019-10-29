@@ -4,8 +4,6 @@
  */
 
 /**
- * Documentation for the RBG.h module
- * This module is the Header file for functions for RGB Images and their structure.
  * @brief struct to represent each pixel from a RGB image, with its components: red, green and blue
  */
 typedef struct{

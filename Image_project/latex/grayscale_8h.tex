@@ -1,0 +1,149 @@
+\hypertarget{grayscale_8h}{}\section{grayscale.\+h File Reference}
+\label{grayscale_8h}\index{grayscale.\+h@{grayscale.\+h}}
+
+
+Header file with functions and struct for grayscale images.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structimageGrayscale}{image\+Grayscale}
+\begin{DoxyCompactList}\small\item\em struct to represent a grayscale image. It has its number of rows and columns (image resolution), the maximum number for each pixel(lum) and the stream with its pixels \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$ \hyperlink{grayscale_8h_aac00064182fcff9b54ac052bf5d7c5ad}{create\+Grayscale\+Image} (int row, int column, int lum)
+\item 
+\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$ \hyperlink{grayscale_8h_a41bb247c8b4514f1cdf6a57a75bf64ad}{read\+File\+Grayscale} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Function used to read a pgm file with a grayscale image and return the image. \end{DoxyCompactList}\item 
+void \hyperlink{grayscale_8h_aa2a3adadb42f4a18dc5d2c1c79399160}{save\+On\+File\+Grayscale} (\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$image, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Function to save Grayscale image in a file. \end{DoxyCompactList}\item 
+void \hyperlink{grayscale_8h_a810c987a42fde780114548bafb09b4d3}{change\+Intensity\+Grayscale} (\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$image, int amount)
+\begin{DoxyCompactList}\small\item\em Function to change the intensity of an Grayscale image. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{grayscale_8h_af4f05c38930564617a0d87353b819ca3}{get\+Pixel\+Grayscale} (\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$image, int row, int column)
+\begin{DoxyCompactList}\small\item\em Function to get a pixel from a Grayscale image. \end{DoxyCompactList}\item 
+\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$ \hyperlink{grayscale_8h_a9cb0758a0d91861cafe3d66f592d47eb}{mean\+Filter\+GS} (\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$image, int size\+Of\+Kernel)
+\item 
+\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$ \hyperlink{grayscale_8h_a672045a3dfcbcb0b70d6be879e7df241}{gaussian\+Filter} (\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$image, int size\+Of\+Kernel)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file with functions and struct for grayscale images. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{grayscale_8h_a810c987a42fde780114548bafb09b4d3}\label{grayscale_8h_a810c987a42fde780114548bafb09b4d3}} 
+\index{grayscale.\+h@{grayscale.\+h}!change\+Intensity\+Grayscale@{change\+Intensity\+Grayscale}}
+\index{change\+Intensity\+Grayscale@{change\+Intensity\+Grayscale}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{change\+Intensity\+Grayscale()}{changeIntensityGrayscale()}}
+{\footnotesize\ttfamily void change\+Intensity\+Grayscale (\begin{DoxyParamCaption}\item[{\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$}]{image,  }\item[{int}]{amount }\end{DoxyParamCaption})}
+
+
+
+Function to change the intensity of an Grayscale image. 
+
+This Function adds the values amount to each pixel, if that new value is larger than 255 then it is changed to 255, if it is smaller than 0, then it is changed to 0. Finally it updates the value of the pixel.
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & Image to change intensity \\
+\hline
+{\em amount} & The amount to change \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{grayscale_8h_aac00064182fcff9b54ac052bf5d7c5ad}\label{grayscale_8h_aac00064182fcff9b54ac052bf5d7c5ad}} 
+\index{grayscale.\+h@{grayscale.\+h}!create\+Grayscale\+Image@{create\+Grayscale\+Image}}
+\index{create\+Grayscale\+Image@{create\+Grayscale\+Image}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{create\+Grayscale\+Image()}{createGrayscaleImage()}}
+{\footnotesize\ttfamily \hyperlink{structimageGrayscale}{image\+Grayscale}$\ast$ create\+Grayscale\+Image (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column,  }\item[{int}]{lum }\end{DoxyParamCaption})}
+
+Documentation for the create\+Grayscale\+Image function of the grayscale module. \mbox{\Hypertarget{grayscale_8h_a672045a3dfcbcb0b70d6be879e7df241}\label{grayscale_8h_a672045a3dfcbcb0b70d6be879e7df241}} 
+\index{grayscale.\+h@{grayscale.\+h}!gaussian\+Filter@{gaussian\+Filter}}
+\index{gaussian\+Filter@{gaussian\+Filter}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{gaussian\+Filter()}{gaussianFilter()}}
+{\footnotesize\ttfamily \hyperlink{structimageGrayscale}{image\+Grayscale}$\ast$ gaussian\+Filter (\begin{DoxyParamCaption}\item[{\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$}]{image,  }\item[{int}]{size\+Of\+Kernel }\end{DoxyParamCaption})}
+
+Documentation for the gaussian\+Filter function of the grayscale module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Sets standard deviation to 1.\+0
+\item It will fill the Kernel
+\item Normalizes the Kernel
+\item Makes convolution of each pixel 
+\end{DoxyItemize}\mbox{\Hypertarget{grayscale_8h_af4f05c38930564617a0d87353b819ca3}\label{grayscale_8h_af4f05c38930564617a0d87353b819ca3}} 
+\index{grayscale.\+h@{grayscale.\+h}!get\+Pixel\+Grayscale@{get\+Pixel\+Grayscale}}
+\index{get\+Pixel\+Grayscale@{get\+Pixel\+Grayscale}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{get\+Pixel\+Grayscale()}{getPixelGrayscale()}}
+{\footnotesize\ttfamily unsigned char get\+Pixel\+Grayscale (\begin{DoxyParamCaption}\item[{\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$}]{image,  }\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Function to get a pixel from a Grayscale image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & Image to get the pixel \\
+\hline
+{\em row} & Row where the pixel is \\
+\hline
+{\em column} & Column where the pixel is \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{grayscale_8h_a9cb0758a0d91861cafe3d66f592d47eb}\label{grayscale_8h_a9cb0758a0d91861cafe3d66f592d47eb}} 
+\index{grayscale.\+h@{grayscale.\+h}!mean\+Filter\+GS@{mean\+Filter\+GS}}
+\index{mean\+Filter\+GS@{mean\+Filter\+GS}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{mean\+Filter\+G\+S()}{meanFilterGS()}}
+{\footnotesize\ttfamily \hyperlink{structimageGrayscale}{image\+Grayscale}$\ast$ mean\+Filter\+GS (\begin{DoxyParamCaption}\item[{\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$}]{image,  }\item[{int}]{size\+Of\+Kernel }\end{DoxyParamCaption})}
+
+This function creates a new filter with the size given, an fills it with 1/size², then it goes through each pixel of the image and makes convolution with the filter to obtain a new value for the pixel and updates it and saves it in a new Grayscale image. \mbox{\Hypertarget{grayscale_8h_a41bb247c8b4514f1cdf6a57a75bf64ad}\label{grayscale_8h_a41bb247c8b4514f1cdf6a57a75bf64ad}} 
+\index{grayscale.\+h@{grayscale.\+h}!read\+File\+Grayscale@{read\+File\+Grayscale}}
+\index{read\+File\+Grayscale@{read\+File\+Grayscale}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{read\+File\+Grayscale()}{readFileGrayscale()}}
+{\footnotesize\ttfamily \hyperlink{structimageGrayscale}{image\+Grayscale}$\ast$ read\+File\+Grayscale (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Function used to read a pgm file with a grayscale image and return the image. 
+
+Documentation for the read\+File\+Grayscale function of the grayscale module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Check if the files exists, if not it will exit, outputting the appropriate warning.
+\item Read the file format, if he is unable to it will exit.
+\item Check the format, if it\textquotesingle{}s not valid it will exit, outputting the appropriate warning.
+\item Check the file for cooments.
+\item If all previous steps were validated it will create the image.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the name of the file to read \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{grayscale_8h_aa2a3adadb42f4a18dc5d2c1c79399160}\label{grayscale_8h_aa2a3adadb42f4a18dc5d2c1c79399160}} 
+\index{grayscale.\+h@{grayscale.\+h}!save\+On\+File\+Grayscale@{save\+On\+File\+Grayscale}}
+\index{save\+On\+File\+Grayscale@{save\+On\+File\+Grayscale}!grayscale.\+h@{grayscale.\+h}}
+\subsubsection{\texorpdfstring{save\+On\+File\+Grayscale()}{saveOnFileGrayscale()}}
+{\footnotesize\ttfamily void save\+On\+File\+Grayscale (\begin{DoxyParamCaption}\item[{\hyperlink{structimageGrayscale}{image\+Grayscale} $\ast$}]{image,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Function to save Grayscale image in a file. 
+
+Documentation for the save\+On\+File\+Grayscale function of the grayscale module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Check if the files exists.
+\item if it does exist but it cannot access it it will exit, outputting the appropriate warning.
+\item If all previous steps were validated it will save the image.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & The Grayscale image to save \\
+\hline
+{\em filename} & The name of file to save the image in \\
+\hline
+\end{DoxyParams}

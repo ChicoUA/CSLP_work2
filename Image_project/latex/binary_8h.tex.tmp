@@ -1,0 +1,84 @@
+\hypertarget{binary_8h}{}\section{binary.\+h File Reference}
+\label{binary_8h}\index{binary.\+h@{binary.\+h}}
+
+
+Header file with functions and struct for binary images.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structimageBinary}{image\+Binary}
+\begin{DoxyCompactList}\small\item\em struct to represent a binary image. It has its number of rows and columns (image resolution) and the stream with its pixels \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structimageBinary}{image\+Binary} $\ast$ \hyperlink{binary_8h_a427e653a408f2cd6be1cad4276a8e6bc}{read\+File\+Binary} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Function used to read a pbm file with a binary image and return the image. \end{DoxyCompactList}\item 
+\hyperlink{structimageBinary}{image\+Binary} $\ast$ \hyperlink{binary_8h_a62ad3d543f68f5e54eed5d6e36474656}{create\+Image\+Binary} (int row, int column)
+\begin{DoxyCompactList}\small\item\em Function to create an Binary image and returns an empty image. \end{DoxyCompactList}\item 
+void \hyperlink{binary_8h_ab648a5466635a11d5921d9a41b3dd1b4}{save\+On\+File\+Binary} (\hyperlink{structimageBinary}{image\+Binary} $\ast$image, char $\ast$filename)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file with functions and struct for binary images. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{binary_8h_a62ad3d543f68f5e54eed5d6e36474656}\label{binary_8h_a62ad3d543f68f5e54eed5d6e36474656}} 
+\index{binary.\+h@{binary.\+h}!create\+Image\+Binary@{create\+Image\+Binary}}
+\index{create\+Image\+Binary@{create\+Image\+Binary}!binary.\+h@{binary.\+h}}
+\subsubsection{\texorpdfstring{create\+Image\+Binary()}{createImageBinary()}}
+{\footnotesize\ttfamily \hyperlink{structimageBinary}{image\+Binary} $\ast$ create\+Image\+Binary (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Function to create an Binary image and returns an empty image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & number of rows of the image \\
+\hline
+{\em column} & number of columns of the image \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{binary_8h_a427e653a408f2cd6be1cad4276a8e6bc}\label{binary_8h_a427e653a408f2cd6be1cad4276a8e6bc}} 
+\index{binary.\+h@{binary.\+h}!read\+File\+Binary@{read\+File\+Binary}}
+\index{read\+File\+Binary@{read\+File\+Binary}!binary.\+h@{binary.\+h}}
+\subsubsection{\texorpdfstring{read\+File\+Binary()}{readFileBinary()}}
+{\footnotesize\ttfamily \hyperlink{structimageBinary}{image\+Binary}$\ast$ read\+File\+Binary (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Function used to read a pbm file with a binary image and return the image. 
+
+Documentation for the binary.\+c module This module is responsible for all binary operations. Documentation for the read\+File\+Binary function of the binary module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Check if the files exists, if not it will exit, outputting the appropriate warning.
+\item Read the file format, if he is unable to it will exit.
+\item Check the format, if it\textquotesingle{}s not valid it will exit, outputting the appropriate warning.
+\item Check the file for cooments.
+\item If all previous steps were validated it will create the image.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the name of the file to read \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{binary_8h_ab648a5466635a11d5921d9a41b3dd1b4}\label{binary_8h_ab648a5466635a11d5921d9a41b3dd1b4}} 
+\index{binary.\+h@{binary.\+h}!save\+On\+File\+Binary@{save\+On\+File\+Binary}}
+\index{save\+On\+File\+Binary@{save\+On\+File\+Binary}!binary.\+h@{binary.\+h}}
+\subsubsection{\texorpdfstring{save\+On\+File\+Binary()}{saveOnFileBinary()}}
+{\footnotesize\ttfamily void save\+On\+File\+Binary (\begin{DoxyParamCaption}\item[{\hyperlink{structimageBinary}{image\+Binary} $\ast$}]{image,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+Documentation for the save\+On\+File\+Binary function of the binary module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Check if the files exists.
+\item if it does exist but it cannot access it it will exit, outputting the appropriate warning.
+\item If all previous steps were validated it will save the image. 
+\end{DoxyItemize}

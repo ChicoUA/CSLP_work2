@@ -1,0 +1,148 @@
+\hypertarget{RGB_8h}{}\section{R\+G\+B.\+h File Reference}
+\label{RGB_8h}\index{R\+G\+B.\+h@{R\+G\+B.\+h}}
+
+
+Header file with functions and struct for R\+GB images.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structRGBPixel}{R\+G\+B\+Pixel}
+\begin{DoxyCompactList}\small\item\em struct to represent each pixel from a R\+GB image, with its components\+: red, green and blue \end{DoxyCompactList}\item 
+struct \hyperlink{structimageRGB}{image\+R\+GB}
+\begin{DoxyCompactList}\small\item\em struct to represent a R\+GB image. It has its number of rows and columns (image resolution), the maximum number for each component(rgb\+\_\+component) and the stream with its pixels \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structimageRGB}{image\+R\+GB} $\ast$ \hyperlink{RGB_8h_a03f436ea68cf0d67c1ef9e64dba2ba5b}{read\+File\+R\+GB} (char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Function used to read a ppm file with a R\+GB image and return the image. \end{DoxyCompactList}\item 
+\hyperlink{structimageRGB}{image\+R\+GB} $\ast$ \hyperlink{RGB_8h_a7c02e2cf60b2a7b0c7bb92d9078f1431}{create\+Image\+R\+GB} (int row, int column, int rgb\+\_\+component)
+\begin{DoxyCompactList}\small\item\em Function to create an R\+GB image and returns an empty image. \end{DoxyCompactList}\item 
+void \hyperlink{RGB_8h_a5dc50539637b37f42e236b4355389cb4}{save\+On\+File\+R\+GB} (\hyperlink{structimageRGB}{image\+R\+GB} $\ast$image, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Function to save R\+GB image in a file. \end{DoxyCompactList}\item 
+void \hyperlink{RGB_8h_afe053004aa5c434d35cbecefd9d4559a}{change\+Intensity\+R\+GB} (\hyperlink{structimageRGB}{image\+R\+GB} $\ast$image, int amount)
+\begin{DoxyCompactList}\small\item\em Function to change the intensity of an R\+GB image. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{RGB_8h_a590769cd4b911b3d261370442a84fee6}\label{RGB_8h_a590769cd4b911b3d261370442a84fee6}} 
+\hyperlink{structRGBPixel}{R\+G\+B\+Pixel} {\bfseries get\+Pixel\+R\+GB} (\hyperlink{structimageRGB}{image\+R\+GB} $\ast$image, int row, int column)
+\item 
+\mbox{\Hypertarget{RGB_8h_acbdacd88083c2e0186d5d78fd47c48f8}\label{RGB_8h_acbdacd88083c2e0186d5d78fd47c48f8}} 
+\hyperlink{structimageRGB}{image\+R\+GB} $\ast$ {\bfseries mean\+Filter} (\hyperlink{structimageRGB}{image\+R\+GB} $\ast$image, int size\+Of\+Kernel)
+\item 
+\hyperlink{structimageRGB}{image\+R\+GB} $\ast$ \hyperlink{RGB_8h_aa186462aec284698091fa790e6e24525}{watermark\+Image} (\hyperlink{structimageRGB}{image\+R\+GB} $\ast$image1, \hyperlink{structimageRGB}{image\+R\+GB} $\ast$image2, float alpha)
+\begin{DoxyCompactList}\small\item\em Function used to add a watermark to a image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file with functions and struct for R\+GB images. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{RGB_8h_afe053004aa5c434d35cbecefd9d4559a}\label{RGB_8h_afe053004aa5c434d35cbecefd9d4559a}} 
+\index{R\+G\+B.\+h@{R\+G\+B.\+h}!change\+Intensity\+R\+GB@{change\+Intensity\+R\+GB}}
+\index{change\+Intensity\+R\+GB@{change\+Intensity\+R\+GB}!R\+G\+B.\+h@{R\+G\+B.\+h}}
+\subsubsection{\texorpdfstring{change\+Intensity\+R\+G\+B()}{changeIntensityRGB()}}
+{\footnotesize\ttfamily void change\+Intensity\+R\+GB (\begin{DoxyParamCaption}\item[{\hyperlink{structimageRGB}{image\+R\+GB} $\ast$}]{image,  }\item[{int}]{amount }\end{DoxyParamCaption})}
+
+
+
+Function to change the intensity of an R\+GB image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & Image to change intensity \\
+\hline
+{\em amount} & The amount to change \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RGB_8h_a7c02e2cf60b2a7b0c7bb92d9078f1431}\label{RGB_8h_a7c02e2cf60b2a7b0c7bb92d9078f1431}} 
+\index{R\+G\+B.\+h@{R\+G\+B.\+h}!create\+Image\+R\+GB@{create\+Image\+R\+GB}}
+\index{create\+Image\+R\+GB@{create\+Image\+R\+GB}!R\+G\+B.\+h@{R\+G\+B.\+h}}
+\subsubsection{\texorpdfstring{create\+Image\+R\+G\+B()}{createImageRGB()}}
+{\footnotesize\ttfamily \hyperlink{structimageRGB}{image\+R\+GB}$\ast$ create\+Image\+R\+GB (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column,  }\item[{int}]{rgb\+\_\+component }\end{DoxyParamCaption})}
+
+
+
+Function to create an R\+GB image and returns an empty image. 
+
+Documentation for the create\+Image\+R\+GB function of the grayscale module.
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & number of rows of the image \\
+\hline
+{\em column} & number of columns of the image \\
+\hline
+{\em rgb\+\_\+component} & maximum number for each pixel \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RGB_8h_a03f436ea68cf0d67c1ef9e64dba2ba5b}\label{RGB_8h_a03f436ea68cf0d67c1ef9e64dba2ba5b}} 
+\index{R\+G\+B.\+h@{R\+G\+B.\+h}!read\+File\+R\+GB@{read\+File\+R\+GB}}
+\index{read\+File\+R\+GB@{read\+File\+R\+GB}!R\+G\+B.\+h@{R\+G\+B.\+h}}
+\subsubsection{\texorpdfstring{read\+File\+R\+G\+B()}{readFileRGB()}}
+{\footnotesize\ttfamily \hyperlink{structimageRGB}{image\+R\+GB}$\ast$ read\+File\+R\+GB (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Function used to read a ppm file with a R\+GB image and return the image. 
+
+Documentation for the R\+B\+G.\+c module This module is responsible for all R\+GB operations. Documentation for the read\+File\+R\+GB function of the R\+GB module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Check if the files exists, if not it will exit, outputting the appropriate warning.
+\item Read the file format, if he is unable to it will exit.
+\item Check the format, if it\textquotesingle{}s not valid it will exit, outputting the appropriate warning.
+\item Check the file for comments.
+\item If all previous steps were validated it will create the image.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the name of the file to read \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RGB_8h_a5dc50539637b37f42e236b4355389cb4}\label{RGB_8h_a5dc50539637b37f42e236b4355389cb4}} 
+\index{R\+G\+B.\+h@{R\+G\+B.\+h}!save\+On\+File\+R\+GB@{save\+On\+File\+R\+GB}}
+\index{save\+On\+File\+R\+GB@{save\+On\+File\+R\+GB}!R\+G\+B.\+h@{R\+G\+B.\+h}}
+\subsubsection{\texorpdfstring{save\+On\+File\+R\+G\+B()}{saveOnFileRGB()}}
+{\footnotesize\ttfamily void save\+On\+File\+R\+GB (\begin{DoxyParamCaption}\item[{\hyperlink{structimageRGB}{image\+R\+GB} $\ast$}]{image,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Function to save R\+GB image in a file. 
+
+Documentation for the save\+On\+File\+R\+GB function of the R\+GB module. This fuction fill do the following\+:
+\begin{DoxyItemize}
+\item Check if the files exists.
+\item if it does exist but it cannot access it it will exit, outputting the appropriate warning.
+\item If all previous steps were validated it will save the image.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & The R\+GB image to save \\
+\hline
+{\em filename} & The name of file to save the image in \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{RGB_8h_aa186462aec284698091fa790e6e24525}\label{RGB_8h_aa186462aec284698091fa790e6e24525}} 
+\index{R\+G\+B.\+h@{R\+G\+B.\+h}!watermark\+Image@{watermark\+Image}}
+\index{watermark\+Image@{watermark\+Image}!R\+G\+B.\+h@{R\+G\+B.\+h}}
+\subsubsection{\texorpdfstring{watermark\+Image()}{watermarkImage()}}
+{\footnotesize\ttfamily \hyperlink{structimageRGB}{image\+R\+GB} $\ast$ watermark\+Image (\begin{DoxyParamCaption}\item[{\hyperlink{structimageRGB}{image\+R\+GB} $\ast$}]{image1,  }\item[{\hyperlink{structimageRGB}{image\+R\+GB} $\ast$}]{image2,  }\item[{float}]{alpha }\end{DoxyParamCaption})}
+
+
+
+Function used to add a watermark to a image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image1} & Image that will be watermarked \\
+\hline
+{\em image2} & Image tha will be the watermark \\
+\hline
+{\em alpha} & amount of transperency \\
+\hline
+\end{DoxyParams}
