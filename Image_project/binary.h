@@ -1,5 +1,5 @@
 /**
- * * Documentation for the binary.h module
+ * Documentation for the binary.h module
  * This module is the Header file for binary images and their structure.
  */
 
