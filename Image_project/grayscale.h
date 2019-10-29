@@ -1,7 +1,8 @@
 /**
- *Header file for functions and struct of grayscale images
+ * Documentation for the grayscale.h module
+ * This module is the Header file for functions for grayscale Images and their structure.
  */
-typedef struct {
+typedef struct{
 	int row;
 	int column;
 	int lum;

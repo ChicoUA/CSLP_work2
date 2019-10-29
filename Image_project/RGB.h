@@ -1,5 +1,6 @@
 /**
- * Header file with functions and struct for RGB images
+ * Documentation for the RBG.h module
+ * This module is the Header file for functions for RGB Images and their structure.
  */
 typedef struct{
         unsigned char r, g, b;

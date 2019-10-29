@@ -1,5 +1,6 @@
 /**
- * Header for functions and struct for binary images
+ * * Documentation for the binary.h module
+ * This module is the Header file for binary images and their structure.
  */
 
 typedef struct {

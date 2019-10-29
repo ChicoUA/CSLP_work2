@@ -2,31 +2,40 @@
 #include <stdlib.h>
 #include "RGB.h"
 #include "grayscale.h"
+/**
+ * Documentation for the RBG.c module
+ * This module is responsible for all RGB operations.
+ */
 
+/**
+ * Documentation for the readFileRGB function of the RGB module.
+ * This fuction fill do the following:
+ * - Check if the files exists, if not it will exit, outputting the appropriate warning.
+ * - Read the file format, if he is unable to it will exit.
+ * - Check the format, if it's not valid it will exit, outputting the appropriate warning.
+ * - Check the file for comments.
+ * - If all previous steps were validated it will create the image. 
+ */
 imageRGB * readFileRGB(char * filename){
 	char buff[16];
 	FILE * file = fopen(filename, "rb");
 	int c, row, column, rgb_component;
 
-	//check if file exists
 	if(!file){
 		fprintf( stderr, "Could not open file %s \n", filename);
 		exit(1);
 	}
 
-	//read image format
          if (!fgets(buff, sizeof(buff), file)) {
               perror(filename);
               exit(1);
          }
 
-	//check the image format
     	if (buff[0] != 'P' || buff[1] != '6') {
          	fprintf(stderr, "Invalid image format (must be 'P6')\n");
          	exit(1);
     	}
 
-	//check for comments
 	c = fgetc(file);
 
 	while(c == '#'){
@@ -56,6 +65,10 @@ imageRGB * readFileRGB(char * filename){
 	return image;
 }
 
+/**
+ * Documentation for the createImageRGB function of the grayscale module.
+ * This fuction fill do the following:
+ */
 imageRGB * createImageRGB(int row, int column, int rgb_component){
 	imageRGB * image;
 	image = (imageRGB *)malloc(sizeof(imageRGB));
@@ -66,12 +79,17 @@ imageRGB * createImageRGB(int row, int column, int rgb_component){
 
 	return image;
 }
-
+/**
+ * Documentation for the saveOnFileRGB function of the RGB module.
+ * This fuction fill do the following:
+ * - Check if the files exists.
+ * - if it does exist but it cannot access it it will exit, outputting the appropriate warning.
+ * - If all previous steps were validated it will save the image.
+ */
 void saveOnFileRGB(imageRGB * image, char * filename){
 	FILE *f;
         f = fopen(filename, "wb");
 
-        //check if file exists
         if(!f){
                 fprintf( stderr, "Could not open file %s \n", filename);
                 exit(1);
@@ -82,7 +100,10 @@ void saveOnFileRGB(imageRGB * image, char * filename){
 	fwrite(image->stream, 3 * image->row, image->column, f);
 	fclose(f);
 }
-
+/**
+ * Documentation for the converRGBtoGrayscale function of the RBG module.
+ * This fuction fill do the following: 
+ */
 imageGrayscale * convertRGBtoGrayscale(imageRGB * image){
 	imageGrayscale * imageGS  = createGrayscaleImage(image->row, image->column, image->rgb_component);
        	printf("row: %d, column: %d, rgb: %d\n", imageGS->row, imageGS->column, imageGS->lum);	

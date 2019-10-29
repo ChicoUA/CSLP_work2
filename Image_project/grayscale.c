@@ -1,39 +1,41 @@
-#include "grayscale.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "grayscale.h"
+/**
+ * Documentation for the grayscale.c module
+ * This module is responsible for all grayscale operations.
+ */
 
-imageGrayscale * createGrayscaleImage(int row, int column, int lum){
-	imageGrayscale * image = (imageGrayscale *)malloc(sizeof(imageGrayscale));
-	image->row = row;
-	image->column = column;
-	image->lum = lum;
-	image->stream = (unsigned char *)calloc(row*column, sizeof(unsigned char));
-}
+/**
+ * Documentation for the readFileGrayscale function of the grayscale module.
+ * This fuction fill do the following:
+ * - Check if the files exists, if not it will exit, outputting the appropriate warning.
+ * - Read the file format, if he is unable to it will exit.
+ * - Check the format, if it's not valid it will exit, outputting the appropriate warning.
+ * - Check the file for cooments.
+ * - If all previous steps were validated it will create the image.
+ */
 
 imageGrayscale * readFileGrayscale(char * filename){
 	char buff[16];
         FILE * file = fopen(filename, "rb");
         int c, row, column, lum;
 
-	 //check if file exists
         if(!file){
                 fprintf( stderr, "Could not open file %s \n", filename);
                 exit(1);
         }
 
-        //read image format
          if (!fgets(buff, sizeof(buff), file)) {
               perror(filename);
               exit(1);
          }
 
-        //check the image format
         if (buff[0] != 'P' || buff[1] != '4') {
                 fprintf(stderr, "Invalid image format (must be 'P4')\n");
                 exit(1);
         }
-	
-	//check for comments
+
         c = fgetc(file);
 
         while(c == '#'){
@@ -56,16 +58,33 @@ imageGrayscale * readFileGrayscale(char * filename){
 	imageGrayscale * image = createGrayscaleImage(row, column, lum);
 
         if(fread(image->stream, image->row, image->column, file) != image->column){
-                fprintf(stderr, "Wrong format for RGB image");
+                fprintf(stderr, "Wrong format for Grayscale image");
                 exit(1);
         }
 
         return image;
 }
+/**
+ * Documentation for the createGrayscaleImage function of the grayscale module.
+ * This fuction fill do the following:
+ */
+imageGrayscale * createGrayscaleImage(int row, int column, int lum){
+	imageGrayscale * image = (imageGrayscale *)malloc(sizeof(imageGrayscale));
+	image->row = row;
+	image->column = column;
+	image->lum = lum;
+	image->stream = (unsigned char *)calloc(row*column, sizeof(unsigned char));
+}
 
+/**
+ * Documentation for the saveOnFileGrayscale function of the grayscale module.
+ * This fuction fill do the following:
+ * - Check if the files exists.
+ * - if it does exist but it cannot access it it will exit, outputting the appropriate warning.
+ * - If all previous steps were validated it will save the image.
+ */
 void saveOnFileGrayscale(imageGrayscale * image, char * filename){
 	FILE * f = fopen(filename, "wb");
-	 //check if file exists
         if(!f){
                 fprintf( stderr, "Could not open file %s \n", filename);
                 exit(1);
