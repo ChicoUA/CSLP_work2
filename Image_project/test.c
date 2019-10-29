@@ -120,8 +120,8 @@ imageGrayscale * edgeDetectionFilter(imageRGB * image, int sizeOfKernel){
 }
 
 int main(int argc, char *argv[]){
-	if(argc > 2){
-		printf("Just one argument!");
+	if(argc != 3){
+		printf("Two arguments(./image_program lena.ppm girl.ppm)!\n");
 		exit(1);
 	}
 
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]){
 	imageGrayscale * imageMeanFilterGS = meanFilterGS(imageGS, 7);
 	saveOnFileGrayscale(imageMeanFilterGS, "meanGS.pgm");
 
-	imageRGB * testImage = readFileRGB("girl.ppm");
+	imageRGB * testImage = readFileRGB(argv[2]);
 
 	imageRGB * imageWatermark = watermarkImage(image, testImage, 0.3);
 	saveOnFileRGB(imageWatermark, "watermark.ppm");
