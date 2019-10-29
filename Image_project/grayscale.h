@@ -1,6 +1,4 @@
-/**
- *Header file for functions and struct of grayscale images
- */
+
 typedef struct {
 	int row;
 	int column;
@@ -19,3 +17,5 @@ void changeIntensityGrayscale(imageGrayscale * image, int amount);
 unsigned char getPixelGrayscale(imageGrayscale * image, int row, int column);
 
 imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel);
+
+imageGrayscale * gaussianFilter(imageGrayscale * image, int sizeOfKernel);

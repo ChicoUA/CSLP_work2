@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 #include "RGB.h"
 #include "grayscale.h"
 #include "binary.h"
@@ -120,10 +121,12 @@ imageGrayscale * edgeDetectionFilter(imageRGB * image, int sizeOfKernel){
 }
 
 int main(int argc, char *argv[]){
-	if(argc != 3){
-		printf("Two arguments(./image_program lena.ppm girl.ppm)!\n");
+	if(argc != 5){
+		printf("Four arguments(./image_program IMAGE1 IMAGE2 THRESHOLD KERNELSIZE)!\nEx:./image_program lena.ppm girl.ppm 128 3\n");
 		exit(1);
 	}
+	long th = strtol(argv[3], NULL, 10);
+	long size = strtol(argv[4], NULL, 10);
 
 	imageRGB * image = readFileRGB(argv[1]);
 	printf("row: %d, column: %d, rgb: %d\n", image->row, image->column, image->rgb_component);
@@ -131,7 +134,7 @@ int main(int argc, char *argv[]){
 	imageGrayscale * imageGS = convertRGBtoGrayscale(image);
 	saveOnFileGrayscale(imageGS, "gray.pgm");
 
-	imageBinary * imageB = convertGrayscaletoBinary(imageGS, 128);
+	imageBinary * imageB = convertGrayscaletoBinary(imageGS, (int)th);
 	saveOnFileBinary(imageB, "binary.pbm");
 
 	imageGrayscale * imageR = convertRGBComponentToGrayscale(image, 'r');
@@ -143,19 +146,22 @@ int main(int argc, char *argv[]){
 	imageGrayscale * imageBl = convertRGBComponentToGrayscale(image, 'b');
 	saveOnFileGrayscale(imageBl, "blue.pgm");
 
-	imageGrayscale * imageEdgeFilter = edgeDetectionFilter(image, 3);
+	imageGrayscale * imageEdgeFilter = edgeDetectionFilter(image, (int)size);
 	saveOnFileGrayscale(imageEdgeFilter, "edge.pgm");
 
-	imageRGB * imageMeanFilter = meanFilter(image, 7);
+	imageRGB * imageMeanFilter = meanFilter(image, (int)size);
 	saveOnFileRGB(imageMeanFilter, "mean.ppm");
 
-	imageGrayscale * imageMeanFilterGS = meanFilterGS(imageGS, 7);
+	imageGrayscale * imageMeanFilterGS = meanFilterGS(imageGS, (int)size);
 	saveOnFileGrayscale(imageMeanFilterGS, "meanGS.pgm");
 
 	imageRGB * testImage = readFileRGB(argv[2]);
 
 	imageRGB * imageWatermark = watermarkImage(image, testImage, 0.3);
 	saveOnFileRGB(imageWatermark, "watermark.ppm");
+
+	imageGrayscale * imageGaussianFilter = gaussianFilter(imageGS, (int)size);
+	saveOnFileGrayscale(imageGaussianFilter, "gaussian.pgm");
 
 	changeIntensityRGB(image,80);
 	saveOnFileRGB(image, "intensity_rgb.ppm");

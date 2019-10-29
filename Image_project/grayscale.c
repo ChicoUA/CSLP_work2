@@ -1,6 +1,9 @@
 #include "grayscale.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+#define M_PI 3.14159265358979323846
 
 imageGrayscale * createGrayscaleImage(int row, int column, int lum){
 	imageGrayscale * image = (imageGrayscale *)malloc(sizeof(imageGrayscale));
@@ -138,3 +141,60 @@ imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel){
 
 }
 
+imageGrayscale * gaussianFilter(imageGrayscale * image, int sizeOfKernel){
+	if(sizeOfKernel % 2 == 0){
+                printf("Size of kernel must be odd!");
+                exit(1);
+        }
+
+	// set standard deviation to 1.0
+    	double sigma = 1.0;
+    	double r, s = 2.0 * sigma * sigma;
+
+	// sum is for normalization
+    	double sum = 0.0;
+
+        int n = (sizeOfKernel - 1) / 2; // odd number = 2n + 1, this n gives the middle number of the size
+
+        float Gx[sizeOfKernel][sizeOfKernel];
+
+        for(int i = -n; i <= n; i++){
+                for(int j = -n; j <= n; j++){
+			r = sqrt(i*i + j*j);
+                        Gx[i+n][j+n] = (exp(-(r*r)/s))/(M_PI * s);
+			sum += Gx[i + n][j + n];
+                }
+        }
+
+	// normalize the Kernel
+    	for(int i = 0; i < sizeOfKernel; ++i){
+        	for(int j = 0; j < sizeOfKernel; ++j){
+            		Gx[i][j] /= sum;
+		}
+	}
+	
+	imageGrayscale * imageGaussianFilter = createGrayscaleImage(image->row, image->column, image->lum);
+
+        //make convolution of each pixel
+        for(int row = 0; row < image->row; row++){
+                for(int column = 0; column < image->column; column++){
+                        float temp = 0;
+                        for(int krow = 0; krow < sizeOfKernel; krow++){
+                                for(int kcolumn = 0; kcolumn < sizeOfKernel; kcolumn++){
+                                        float xValue = Gx[krow][kcolumn];
+
+                                        int newrow = row + krow - n;
+                                        int newcolumn = column + kcolumn -n;
+
+                                        unsigned char pixel = getPixelGrayscale(image, newrow, newcolumn);
+                                        temp += (float)pixel * xValue;
+
+                                }
+                        }
+                        *(imageGaussianFilter->stream + row * image->column + column) = (int)temp;
+                }
+        }
+
+        return imageGaussianFilter;
+
+}
