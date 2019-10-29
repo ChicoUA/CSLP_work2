@@ -6,6 +6,21 @@
  * This module is responsible for all grayscale operations.
  */
 
+
+#include <math.h>
+
+#define M_PI 3.14159265358979323846
+/**
+ * Documentation for the createGrayscaleImage function of the grayscale module.
+ */
+imageGrayscale * createGrayscaleImage(int row, int column, int lum){
+	imageGrayscale * image = (imageGrayscale *)malloc(sizeof(imageGrayscale));
+	image->row = row;
+	image->column = column;
+	image->lum = lum;
+	image->stream = (unsigned char *)calloc(row*column, sizeof(unsigned char));
+	return image;
+}
 /**
  * Documentation for the readFileGrayscale function of the grayscale module.
  * This fuction fill do the following:
@@ -15,7 +30,6 @@
  * - Check the file for cooments.
  * - If all previous steps were validated it will create the image.
  */
-
 imageGrayscale * readFileGrayscale(char * filename){
 	char buff[16];
         FILE * file = fopen(filename, "rb");
@@ -66,7 +80,6 @@ imageGrayscale * readFileGrayscale(char * filename){
 }
 /**
  * Documentation for the createGrayscaleImage function of the grayscale module.
- * This fuction fill do the following:
  */
 imageGrayscale * createGrayscaleImage(int row, int column, int lum){
 	imageGrayscale * image = (imageGrayscale *)malloc(sizeof(imageGrayscale));
@@ -95,6 +108,126 @@ void saveOnFileGrayscale(imageGrayscale * image, char * filename){
         fwrite(image->stream, image->row, image->column, f);
         fclose(f);
 }
+/**
+ * Documentation for the changeIntensityGrayscaleImage function of the grayscale module.
+ */	
+void changeIntensityGrayscale(imageGrayscale * image, int amount){
+	for(int i = 0; i < image->row * image->column; i++){
+		int newvalue  = (int)image->stream[i] + amount;
+		if(newvalue > 255)
+			newvalue = 255;
+		else if(newvalue < 0)
+			newvalue = 0;
+		image->stream[i]  = (unsigned char)newvalue;
+	}
+}
+
+unsigned char getPixelGrayscale(imageGrayscale * image, int row, int column){
+	if(row < 0 || row > image->row || column < 0 || column > image->column)
+		return 0;
+
+	return *(image->stream + row*image->column + column);
+}
+/**
+ * Documentation for the meanFilterGS function of the grayscale module.
+ */
+imageGrayscale * meanFilterGS(imageGrayscale * image, int sizeOfKernel){
+	if(sizeOfKernel % 2 == 0){
+                printf("Size of kernel must be odd!");
+                exit(1);
+        }
+
+        int n = (sizeOfKernel - 1) / 2;
+
+        float Gx[sizeOfKernel][sizeOfKernel];
+
+        for(int i = 0; i < sizeOfKernel; i++){
+                for(int j = 0; j < sizeOfKernel; j++){
+                        Gx[i][j] = 1/((float)sizeOfKernel * (float)sizeOfKernel);
+                }
+        }
+
+	imageGrayscale * imageMeanFilter = createGrayscaleImage(image->row, image->column, image->lum);
+
+        for(int row = 0; row < image->row; row++){
+                for(int column = 0; column < image->column; column++){
+                        float temp = 0;
+                        for(int krow = 0; krow < sizeOfKernel; krow++){
+                                for(int kcolumn = 0; kcolumn < sizeOfKernel; kcolumn++){
+                                        float xValue = Gx[krow][kcolumn];
+
+                                        int newrow = row + krow - n;
+                                        int newcolumn = column + kcolumn -n;
+
+                                        unsigned char pixel = getPixelGrayscale(image, newrow, newcolumn);
+                                        temp += (float)pixel * xValue;
+
+                                }
+                        }
+                        *(imageMeanFilter->stream + row * image->column + column) = (int)temp;
+                }
+        }
+
+        return imageMeanFilter;
+
+}
+/**
+ * Documentation for the gaussianFilter function of the grayscale module.
+ * This fuction fill do the following:
+ * - Sets standard deviation to 1.0
+ * - Normalizes the Kernel
+ * - Makes convolution of each pixel
+ */
+imageGrayscale * gaussianFilter(imageGrayscale * image, int sizeOfKernel){
+	if(sizeOfKernel % 2 == 0){
+                printf("Size of kernel must be odd!");
+                exit(1);
+        }
+
+    	double sigma = 1.0;
+    	double r, s = 2.0 * sigma * sigma;
+
+    	double sum = 0.0;
+
+        int n = (sizeOfKernel - 1) / 2;
+
+        float Gx[sizeOfKernel][sizeOfKernel];
+
+        for(int i = -n; i <= n; i++){
+                for(int j = -n; j <= n; j++){
+			r = sqrt(i*i + j*j);
+                        Gx[i+n][j+n] = (exp(-(r*r)/s))/(M_PI * s);
+			sum += Gx[i + n][j + n];
+                }
+        }
+
+    	for(int i = 0; i < sizeOfKernel; ++i){
+        	for(int j = 0; j < sizeOfKernel; ++j){
+            		Gx[i][j] /= sum;
+		}
+	}
 	
+	imageGrayscale * imageGaussianFilter = createGrayscaleImage(image->row, image->column, image->lum);
 
+        for(int row = 0; row < image->row; row++){
+                for(int column = 0; column < image->column; column++){
+                        float temp = 0;
+                        for(int krow = 0; krow < sizeOfKernel; krow++){
+                                for(int kcolumn = 0; kcolumn < sizeOfKernel; kcolumn++){
+                                        float xValue = Gx[krow][kcolumn];
 
+                                        int newrow = row + krow - n;
+                                        int newcolumn = column + kcolumn -n;
+
+                                        unsigned char pixel = getPixelGrayscale(image, newrow, newcolumn);
+                                        temp += (float)pixel * xValue;
+
+                                }
+                        }
+                        *(imageGaussianFilter->stream + row * image->column + column) = (int)temp;
+                }
+        }
+
+        return imageGaussianFilter;
+
+}
