@@ -76,16 +76,6 @@ imageGrayscale * readFileGrayscale(char * filename){
 
         return image;
 }
-/**
- * Documentation for the createGrayscaleImage function of the grayscale module.
- */
-imageGrayscale * createGrayscaleImage(int row, int column, int lum){
-	imageGrayscale * image = (imageGrayscale *)malloc(sizeof(imageGrayscale));
-	image->row = row;
-	image->column = column;
-	image->lum = lum;
-	image->stream = (unsigned char *)calloc(row*column, sizeof(unsigned char));
-}
 
 /**
  * Documentation for the saveOnFileGrayscale function of the grayscale module.
